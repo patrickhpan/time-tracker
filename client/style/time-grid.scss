@@ -1,0 +1,84 @@
+$tg-row-height: 1em;
+$tg-hour-width: 1fr;
+// $tg-grid-cols: 6;
+$tg-grid-width: 6fr;
+$tg-grid-margin: 1fr;
+$tg-line-weight: 1px;
+$tg-line-weight-heavy: 2px;
+$tg-line-weight-medium: 1px;
+$tg-line-color: rgba(black, 0.3);
+$tg-line-color-heavy: rgba(black, 0.8);
+$tg-line-color-medium: rgba(black, 0.8);
+
+.TimeGrid {
+    width: 500px;
+    padding: 1em;
+    background-color: #f7f7f7;
+    pointer-events: none;
+
+    display: grid;
+    grid-template-rows: repeat(97, #{"[rows]"} $tg-row-height);
+    // grid-template-columns: #{"[hour]"} $tg-hour-width repeat($tg-grid-cols, #{"[grid]"} $tg-grid-width) #{"[margin]"} $tg-grid-margin;
+    grid-template-columns: #{"[hour]"} $tg-hour-width #{"[grid]"} $tg-grid-width #{"[margin]"} $tg-grid-margin;
+
+
+    > .tg-hour {
+        grid-column: hour;
+        font-size: 1.5em;
+        user-select: none;
+
+        @for $i from 0 through 23 {
+            &.tg-hour-#{$i} {
+                grid-row-start: rows (4 * $i + 1);
+            }
+        }
+    }
+
+    > .tg-line {
+        grid-column: grid 1 / span 2;
+        border-top: $tg-line-weight solid $tg-line-color;
+        cursor: pointer;
+        pointer-events: initial;
+
+        @for $i from 0 through 95 {
+            &.tg-line-#{$i} {
+                grid-row: rows ($i + 2);
+            }
+        }
+
+        &.tg-line-95 {
+            border-bottom: $tg-line-weight-heavy solid $tg-line-color-heavy;
+        }
+
+        &.tg-line-heavy {
+            border-top: $tg-line-weight-heavy solid $tg-line-color-heavy;
+        }
+
+        &.tg-line-medium {
+            border-top: $tg-line-weight-medium solid $tg-line-color-medium;
+        }
+    }
+
+    > .tg-block {
+        grid-column: grid 1;
+        
+        @for $i from 0 through 95 {
+            &.tg-block-start-#{$i} {
+                grid-row-start: rows ($i + 2);
+            }
+            &.tg-block-end-#{$i} {
+                grid-row-end: rows ($i + 2);
+            }
+        }
+
+        &.tg-block-mode-dragging {
+            background-color: blue;
+        }
+        
+        &.tg-block-mode-selected {
+            background-color: green;
+        }
+    }
+
+
+}
