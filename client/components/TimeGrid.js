@@ -5,6 +5,8 @@ import TimeGridBlock from 'containers/TimeGridBlock';
 
 class TimeGrid extends React.Component {
 
+    mouseUpListener = null
+
     renderLine = (hour, quarter) => {
         const row = hour * 4 + quarter;
         let weight = 'normal';
@@ -28,7 +30,21 @@ class TimeGrid extends React.Component {
         return <div key={`hour-${hour}`} className={className} children={formattedHour} />
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { isDragging, endDrag } = this.props;
+        const { isDragging: nextIsDragging } = nextProps
+        if(isDragging !== nextIsDragging) {
+            if(nextIsDragging) {
+                window.addEventListener('mouseup', endDrag, true)
+            } else {
+                window.removeEventListener('mouseup', endDrag, true)
+            }
+        }
+    }
+
     render() {
+        const { selection, dragOver, isDragging } = this.props;
+
         let hours = [],
             lines = [];
 
@@ -38,8 +54,6 @@ class TimeGrid extends React.Component {
                 lines.push(this.renderLine(hour, quarter))
             }
         }
-
-        const { selection, dragOver } = this.props;
         
         const dragOverEl = Array.isArray(dragOver) ?
             <TimeGridBlock range={dragOver} mode='dragging' /> :

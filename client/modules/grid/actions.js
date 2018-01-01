@@ -14,9 +14,15 @@ const dragOver = (row) => ({
     }
 })
 
-const endDrag = () => ({
-    type: types.endDrag,
-})
+// const endDrag = () => ({
+//     type: types.endDrag,
+// })
+
+const endDrag = () => {
+    console.log("end drag")
+    return {
+    type: types.endDrag}
+}
 
 export {
     startDrag,

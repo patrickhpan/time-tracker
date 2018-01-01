@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 
-const TimeGridLine = ({ row, weight, startDrag, dragOver, endDrag, isDragging }) => {
+const TimeGridLine = ({ row, weight, startDrag, dragOver, isDragging }) => {
     const className = cn([
         `tg-line`,
         `tg-line-${row}`, // 1-index to match CSS Grid
@@ -13,7 +13,7 @@ const TimeGridLine = ({ row, weight, startDrag, dragOver, endDrag, isDragging })
         { onMouseOver: dragOver } :
         {}
 
-    return <div key={key} className={className} onMouseDown={startDrag} {...mouseOverProp} onMouseUp={endDrag} />
+    return <div key={key} className={className} onMouseDown={startDrag} {...mouseOverProp} />
 }
 
 export default TimeGridLine;

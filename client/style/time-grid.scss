@@ -62,7 +62,7 @@ $tg-line-color-medium: rgba(black, 0.8);
     > .tg-block {
         grid-column: grid 1;
         
-        @for $i from 0 through 95 {
+        @for $i from 0 through 96 {
             &.tg-block-start-#{$i} {
                 grid-row-start: rows ($i + 2);
             }
